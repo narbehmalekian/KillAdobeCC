@@ -1,9 +1,11 @@
 # KillAdobeCC
 This script forcibly terminates Adobe background tasks, because when you click "Exit Creative Cloud", Adobe decides to run in the background.
 
-<h2></h2><h3>⚠️ RUN THIS SCRIPT AT YOUR OWN RISK!</h3>
-I haven't tested what happens when this script is run while Photoshop, or other Adobe programs are running, but I imagine it would NOT go well. Please save your work before killing Adobe background tasks.
-<h2></h2><h3>The script kills the following tasks:</h3>
+<h3>⚠️ RUN THIS SCRIPT AT YOUR OWN RISK!</h3>
+
+> I haven't tested what happens when this script is run while Photoshop, or other Adobe programs are running, but I imagine it would NOT go well. Please save your work before killing Adobe background tasks.
+
+<h2>Targetted Adobe Processes</h2>
   
   - AGMService
   - acrotray
@@ -22,12 +24,14 @@ I haven't tested what happens when this script is run while Photoshop, or other 
   - AdobeIPCBroker
   - AdobeCollabSync
   - AcrobatNotificationClient
-<h3>Process Reference:</h3> https://helpx.adobe.com/x-productkb/global/adobe-background-processes.html
+  
+[Process Reference](https://helpx.adobe.com/x-productkb/global/adobe-background-processes.html "Adobe's article explaining many of the background processes")
 
-<h2>Troubleshooting</h2>
-<h3>PowerShell error `running scripts is disabled on this system?`</h3>
+<h2>Troubleshooting</h2><h3>PowerShell error: Running scripts is disabled on this system</h3>
+
 > Powershell does not allow you to run scripts by default.
-> Change the permissions using an administrator PowerShell and this command
-```ps
+> Change the permissions with an administrator PowerShell window using the following command
+
+```powershell
 Set-ExecutionPolicy RemoteSigned
 ```
