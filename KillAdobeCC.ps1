@@ -1,58 +1,43 @@
-Write-Host "Purging all AdobeCC background processes..."
-Write-Host ""
+$ProcessList = @(
+    'AGMService'
+    'acrotray'
+    'adobeupdateservice'
+    'armsvc'
+    'adobe_licensing_helper'
+    'agsservice'
+    'CCLibrary'
+    'CCXProcess'
+    'CoreSync'
+    'Creative Cloud Helper'
+    'Creative Cloud'
+    'Adobe Desktop Service'
+    'CRWindowsClientService'
+    'Adobe CEF Helper'
+    'AdobeIPCBroker'
+    'AdobeCollabSync'
+    'AcrobatNotificationClient'
+    
+    # Task names are found in the Details tab in Task Manager
+    # Right clicking an item on the Processes tab will link you to the appropriate process in the Details tab via the "Go to Details" option
+)
 
-Stop-Process -Name adobeupdateservice -force -ErrorAction SilentlyContinue -ErrorVariable NotRunning
-if($NotRunning){ Write-Host "adobeupdateservice - not running" -ForegroundColor DarkGray }
-else { Write-Host " adobeupdateservice - PROCESS TERMINATED " -ForegroundColor White -BackgroundColor DarkRED }
-
-Stop-Process -Name armsvc -force -ErrorAction SilentlyContinue -ErrorVariable NotRunning
-if($NotRunning){ Write-Host "armsvc - not running" -ForegroundColor DarkGray }
-else { Write-Host " armsvc - PROCESS TERMINATED " -ForegroundColor White -BackgroundColor DarkRED }
-
-Stop-Process -Name adobe_licensing_helper -force -ErrorAction SilentlyContinue -ErrorVariable NotRunning
-if($NotRunning){ Write-Host "adobe_licensing_helper - not running" -ForegroundColor DarkGray }
-else { Write-Host " adobe_licensing_helper - PROCESS TERMINATED " -ForegroundColor White -BackgroundColor DarkRED }
-
-Stop-Process -Name agsservice -force -ErrorAction SilentlyContinue -ErrorVariable NotRunning
-if($NotRunning){ Write-Host "agsservice - not running" -ForegroundColor DarkGray }
-else { Write-Host " agsservice - PROCESS TERMINATED " -ForegroundColor White -BackgroundColor DarkRED }
-
-Stop-Process -Name CCLibrary -force -ErrorAction SilentlyContinue -ErrorVariable NotRunning
-if($NotRunning){ Write-Host "CCLibrary - not running" -ForegroundColor DarkGray }
-else { Write-Host " CCLibrary - PROCESS TERMINATED " -ForegroundColor White -BackgroundColor DarkRED }
-
-Stop-Process -Name CCXProcess -force -ErrorAction SilentlyContinue -ErrorVariable NotRunning
-if($NotRunning){ Write-Host "CCXProcess - not running" -ForegroundColor DarkGray }
-else { Write-Host " CCXProcess - PROCESS TERMINATED " -ForegroundColor White -BackgroundColor DarkRED }
-
-Stop-Process -Name CoreSync -force -ErrorAction SilentlyContinue -ErrorVariable NotRunning
-if($NotRunning){ Write-Host "CoreSync - not running" -ForegroundColor DarkGray }
-else { Write-Host " CoreSync - PROCESS TERMINATED " -ForegroundColor White -BackgroundColor DarkRED }
-
-Stop-Process -Name "Creative Cloud Helper" -force -ErrorAction SilentlyContinue -ErrorVariable NotRunning
-if($NotRunning){ Write-Host "Creative Cloud Helper - not running" -ForegroundColor DarkGray }
-else { Write-Host " Creative Cloud Helper - PROCESS TERMINATED " -ForegroundColor White -BackgroundColor DarkRED }
-
-Stop-Process -Name "Creative Cloud" -force -ErrorAction SilentlyContinue -ErrorVariable NotRunning
-if($NotRunning){ Write-Host "Creative Cloud - not running" -ForegroundColor DarkGray }
-else { Write-Host " Creative Cloud - PROCESS TERMINATED " -ForegroundColor White -BackgroundColor DarkRED }
-
-Stop-Process -Name "Adobe Desktop Service" -force -ErrorAction SilentlyContinue -ErrorVariable NotRunning
-if($NotRunning){ Write-Host "Adobe Desktop Service - not running" -ForegroundColor DarkGray }
-else { Write-Host " Adobe Desktop Service - PROCESS TERMINATED " -ForegroundColor White -BackgroundColor DarkRED }
-
-Stop-Process -Name CRWindowsClientService -force -ErrorAction SilentlyContinue -ErrorVariable NotRunning
-if($NotRunning){ Write-Host "CRWindowsClientService - not running" -ForegroundColor DarkGray }
-else { Write-Host " CRWindowsClientService - PROCESS TERMINATED " -ForegroundColor White -BackgroundColor DarkRED }
-
-Stop-Process -Name "Adobe CEF Helper" -force -ErrorAction SilentlyContinue -ErrorVariable NotRunning
-if($NotRunning){ Write-Host "Adobe CEF Helper - not running" -ForegroundColor DarkGray }
-else { Write-Host " Adobe CEF Helper - PROCESS TERMINATED " -ForegroundColor White -BackgroundColor DarkRED }
-
-Stop-Process -Name AdobeIPCBroker -force -ErrorAction SilentlyContinue -ErrorVariable NotRunning
-if($NotRunning){ Write-Host "AdobeIPCBroker - not running" -ForegroundColor DarkGray }
-else { Write-Host " AdobeIPCBroker - PROCESS TERMINATED " -ForegroundColor White -BackgroundColor DarkRED }
+$Delay = 200 # in milliseconds, per item, this delay is just for fun. It can be set to 0 for near-instant runtime
 
 Write-Host ""
-Write-Host "You may now close this window."
-timeout /t 30
+Write-Host "Purging unwanted background processes..." -ForegroundColor Red
+Write-Host ""
+
+for( $i=0; $i -lt $ProcessList.count; $i++){
+    $p = $ProcessList[$i]
+    Write-Host -NoNewLine " checking:" $p -ForegroundColor White
+    Start-Sleep -milliseconds $Delay
+    Stop-Process -Name $p -force -ErrorAction SilentlyContinue -ErrorVariable NotRunning
+    if($NotRunning){ Write-Host "`r not running:"$p -ForegroundColor DarkGray }
+    else { Write-Host "`r PROCESS TERMINATED:"$p"" -ForegroundColor White -BackgroundColor DarkRED }
+}
+
+Write-Host ""
+Write-Host "Done!"
+Write-Host ""
+Write-Host -NoNewLine "The window will close soon."
+timeout /t 10
