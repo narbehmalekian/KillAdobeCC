@@ -16,6 +16,7 @@ $ProcessList = @(
     'AdobeIPCBroker'
     'AdobeCollabSync'
     'AcrobatNotificationClient'
+    'AdobeExtensionsService'
     
     # Task names are found in the Details tab in Task Manager
     # Right clicking an item on the Processes tab will link you to the appropriate process in the Details tab via the "Go to Details" option

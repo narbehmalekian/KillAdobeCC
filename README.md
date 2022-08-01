@@ -24,6 +24,7 @@ This script forcibly terminates Adobe background tasks, because when you click "
   - AdobeIPCBroker
   - AdobeCollabSync
   - AcrobatNotificationClient
+  - AdobeExtensionsService
   
 [Process Reference](https://helpx.adobe.com/x-productkb/global/adobe-background-processes.html "Adobe's article explaining many of the background processes")
 
