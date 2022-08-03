@@ -41,7 +41,7 @@ $ProcessList = @(
     # Right clicking an item on the Processes tab will link you to the appropriate process in the Details tab via the "Go to Details" option
 )
 
-$Delay = 200 # in milliseconds, per item, this delay is just for fun. It can be set to 0 for near-instant runtime
+$Delay = 100 # in milliseconds, per item, this delay is just for fun. It can be set to 0 for near-instant runtime
 
 Write-Host ""
 Write-Host "Purging unwanted background processes..." -ForegroundColor Red
